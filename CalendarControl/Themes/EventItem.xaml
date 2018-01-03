@@ -1,0 +1,49 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="using:CalendarControl">
+
+    <Style TargetType="local:EventItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:EventItem">
+                    <Grid x:Name="RootGrid"
+                          Background="{Binding Event.Color}"
+                          BorderThickness="{ThemeResource EventBorderThickness}"
+                          BorderBrush="{ThemeResource EventBorderBrush}">
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="SizeGroup">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="Narrow">
+                                    <VisualState.Setters>
+                                        <Setter Target="Title.Visibility"
+                                                Value="Collapsed" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="SelectionGroup">
+                                <VisualState x:Name="VisualStateNormal" />
+                                <VisualState x:Name="VisualStateSelected">
+                                    <VisualState.Setters>
+                                        <Setter Target="Selection.Opacity"
+                                                Value="1" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Rectangle x:Name="Selection"
+                                   Fill="{ThemeResource EventSelectedBackground}"
+                                   Opacity="0" />
+
+                        <TextBlock x:Name="Title"
+                                   MaxLines="2"
+                                   Text="{Binding Event.Title}"
+                                   VerticalAlignment="Top"
+                                   Style="{ThemeResource EventTitleTextBlockStyle}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

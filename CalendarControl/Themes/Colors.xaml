@@ -1,0 +1,80 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="using:CalendarControl.Themes">
+
+    <ResourceDictionary.ThemeDictionaries>
+
+        <!-- LIGHT THEME -->
+        <ResourceDictionary x:Key="Light">
+            <Color x:Key="DayTodayBackgroundColor">#FFF4DF42</Color>
+            <Color x:Key="EventBackgroundColor">#FF559670</Color>
+        </ResourceDictionary>
+
+        <!-- DARK/... THEME -->
+        <ResourceDictionary x:Key="Default">
+            <Color x:Key="DayTodayBackgroundColor">#FFF4DF42</Color>
+            <Color x:Key="EventBackgroundColor">#FF559670</Color>
+        </ResourceDictionary>
+
+    </ResourceDictionary.ThemeDictionaries>
+
+    <!-- Calendar header -->
+    <SolidColorBrush x:Key="CalendarHeaderBackground"
+                     Color="Transparent" />
+    <SolidColorBrush x:Key="CalendarHeaderBorderBrush"
+                     Color="Transparent" />
+    <Thickness x:Key="CalendarHeaderBorderThickness">0</Thickness>
+    <SolidColorBrush x:Key="CalendarHeaderForeground"
+                     Color="{ThemeResource SystemBaseHighColor}" />
+    <Style x:Key="CalendarHeaderTextBlockStyle"
+           TargetType="TextBlock"
+           BasedOn="{StaticResource BodyTextBlockStyle}" />
+
+    <!-- Day header -->
+    <SolidColorBrush x:Key="DayHeaderBackground"
+                     Color="Transparent"/>    
+    <SolidColorBrush x:Key="DayHeaderBorderBrush"
+                     Color="Transparent"/>
+    <Thickness x:Key="DayHeaderBorderThickness">0</Thickness>
+    <Style TargetType="TextBlock"
+           x:Key="DayHeaderTextBlockStyle"
+           BasedOn="{StaticResource BodyTextBlockStyle}" />
+    
+    <!-- Day -->
+    <SolidColorBrush x:Key="DayBackground"
+                     Color="Transparent" />
+    <SolidColorBrush x:Key="DayTodayBackground"
+                     Color="{ThemeResource DayTodayBackgroundColor}" />
+    <SolidColorBrush x:Key="HourDisabledBackground"
+                     Color="{ThemeResource SystemListLowColor}" />
+    <SolidColorBrush x:Key="HourSelectedBackground"
+                     Color="{ThemeResource SystemAccentColor}"
+                     Opacity="0.6" />
+    <SolidColorBrush x:Key="HourPointerOverBackground"
+                     Color="{ThemeResource SystemAccentColor}"
+                     Opacity="0.4" />
+
+    <!-- Hour -->
+    <SolidColorBrush x:Key="HourBackground"
+                     Color="Transparent" />
+    <SolidColorBrush x:Key="HourBorderBrush"
+                     Color="Transparent" />
+    <Thickness x:Key="HourBorderThickness">0</Thickness>
+    <Style TargetType="TextBlock"
+           x:Key="HourTextBlockStyle"
+           BasedOn="{StaticResource BodyTextBlockStyle}" />
+
+    <!-- EVENT -->
+    <SolidColorBrush x:Key="EventBorderBrush"
+                     Color="{ThemeResource SystemBaseMediumColor}" />
+    <SolidColorBrush x:Key="EventBackground"
+                     Color="{ThemeResource EventBackgroundColor}" />
+    <SolidColorBrush x:Key="EventSelectedBackground"
+                     Color="{ThemeResource SystemAccentColor}"
+                     Opacity="0.6" />
+    <Thickness x:Key="EventBorderThickness">1</Thickness>
+    <Style TargetType="TextBlock"
+           x:Key="EventTitleTextBlockStyle"
+           BasedOn="{StaticResource BodyTextBlockStyle}" />
+</ResourceDictionary>
+

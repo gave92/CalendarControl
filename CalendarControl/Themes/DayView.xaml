@@ -1,0 +1,50 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+                    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+                    xmlns:local="using:CalendarControl">
+
+    <Style TargetType="local:DayView">
+        <Setter Property="DayHeaderTemplate"
+                Value="{StaticResource DayHeaderTemplate}" />
+        <Setter Property="DayNormalBackground"
+                Value="{ThemeResource DayBackground}" />
+        <Setter Property="DayTodayBackground"
+                Value="{ThemeResource DayTodayBackground}" />
+        <Setter Property="HourItemTemplate"
+                Value="{StaticResource HourItemTemplate}" />
+        <Setter Property="HourDisabledBackground"
+                Value="{ThemeResource HourDisabledBackground}" />
+        <Setter Property="HourSelectedBackground"
+                Value="{ThemeResource HourSelectedBackground}" />
+        <Setter Property="HourPointerOverBackground"
+                Value="{ThemeResource HourPointerOverBackground}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:DayView">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <ContentPresenter x:Name="DayHeader"
+                                          Content="{Binding}"
+                                          ContentTemplate="{TemplateBinding DayHeaderTemplate}" />
+
+                        <Canvas x:Name="DayCanvas"
+                                Grid.Row="1"
+                                MinWidth="40"
+                                Background="Transparent" />
+
+                        <local:EventView Grid.Row="1"
+                                         ListItemCount="{Binding Day.Hours.Count}"
+                                         x:Name="DayEvents"
+                                         Events="{Binding Day.Events}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+</ResourceDictionary>

@@ -1,0 +1,86 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- CALENDARVIEWMODEL -->
+    <DataTemplate x:Key="CalendarHeaderTemplate">
+        <Grid Background="{ThemeResource CalendarHeaderBackground}"
+              BorderBrush="{ThemeResource CalendarHeaderBorderBrush}"
+              BorderThickness="{ThemeResource CalendarHeaderBorderThickness}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0">
+                <TextBlock Style="{ThemeResource CalendarHeaderTextBlockStyle}"
+                           Foreground="{ThemeResource CalendarHeaderForeground}"
+                           HorizontalAlignment="Left"
+                           TextWrapping="NoWrap"
+                           TextTrimming="Clip">
+                    <Run Text="{Binding Month}" /> <Run Text="{Binding Year}" />
+                </TextBlock>
+            </Border>
+
+            <StackPanel Orientation="Horizontal"
+                        Grid.Column="1">
+                <Button Background="Transparent"
+                        Foreground="{ThemeResource CalendarHeaderForeground}"
+                        Content="&#xE710;"
+                        FontFamily="Segoe MDL2 Assets"
+                        VerticalAlignment="Stretch"
+                        BorderThickness="0"
+                        Command="{Binding AddEventCommand}" />
+                <Button Background="Transparent"
+                        Foreground="{ThemeResource CalendarHeaderForeground}"
+                        Content="&#xE74D;"
+                        FontFamily="Segoe MDL2 Assets"
+                        VerticalAlignment="Stretch"
+                        BorderThickness="0"
+                        Command="{Binding RemoveEventCommand}" />
+                <Button Background="Transparent"
+                        Foreground="{ThemeResource CalendarHeaderForeground}"
+                        Content="&#xE72B;"
+                        FontFamily="Segoe MDL2 Assets"
+                        VerticalAlignment="Stretch"
+                        BorderThickness="0"
+                        Command="{Binding ShiftDaysCommand}"
+                        CommandParameter="-1" />
+                <Button Background="Transparent"
+                        Foreground="{ThemeResource CalendarHeaderForeground}"
+                        Content="&#xE72A;"
+                        FontFamily="Segoe MDL2 Assets"
+                        VerticalAlignment="Stretch"
+                        BorderThickness="0"
+                        Command="{Binding ShiftDaysCommand}"
+                        CommandParameter="1" />
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <!-- DAY -->
+    <DataTemplate x:Key="DayHeaderTemplate">
+        <StackPanel Orientation="Vertical"
+                    Background="{ThemeResource DayHeaderBackground}"
+                    BorderBrush="{ThemeResource DayHeaderBorderBrush}"
+                    BorderThickness="{ThemeResource DayHeaderBorderThickness}"
+                    Margin="0,0,0,4">
+            <TextBlock Text="{Binding Day.DayOfWeek}"
+                       Style="{ThemeResource DayHeaderTextBlockStyle}" />
+            <TextBlock Text="{Binding Day.DayOfYear}"
+                       Style="{ThemeResource DayHeaderTextBlockStyle}" />
+        </StackPanel>
+    </DataTemplate>
+
+    <!-- HOUR -->
+    <DataTemplate x:Key="HourItemTemplate">
+        <Border Background="{ThemeResource HourBackground}"
+                BorderBrush="{ThemeResource HourBorderBrush}"
+                BorderThickness="{ThemeResource HourBorderThickness}">
+
+            <TextBlock Text="{Binding Short}"
+                       Style="{ThemeResource HourTextBlockStyle}"
+                       Margin="0,0,4,0" />
+        </Border>
+    </DataTemplate>
+
+</ResourceDictionary>

@@ -1,0 +1,77 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="using:CalendarControl">
+
+    <Style TargetType="local:Calendar">
+        <Setter Property="HeaderTemplate"
+                Value="{StaticResource CalendarHeaderTemplate}" />
+        <Setter Property="DayHeaderTemplate"
+                Value="{StaticResource DayHeaderTemplate}" />
+        <Setter Property="HourItemTemplate"
+                Value="{StaticResource HourItemTemplate}" />
+        <Setter Property="CanvasMinHeight"
+                Value="0" />
+        <Setter Property="CanvasMaxHeight"
+                Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:Calendar">
+                    <Grid x:Name="TemplateRoot"
+                          BorderBrush="{TemplateBinding BorderBrush}"
+                          BorderThickness="{TemplateBinding BorderThickness}"
+                          Background="{TemplateBinding Background}"
+                          local:AttachedProperties.DayHeaderTemplate="{TemplateBinding DayHeaderTemplate}"
+                          local:AttachedProperties.HourItemTemplate="{TemplateBinding HourItemTemplate}">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition MaxHeight="{Binding CanvasMaxHeight, RelativeSource={RelativeSource TemplatedParent}}" />
+                        </Grid.RowDefinitions>
+
+                        <ContentPresenter x:Name="CalendarHeader"
+                                          Content="{TemplateBinding ViewModel}"
+                                          ContentTemplate="{TemplateBinding HeaderTemplate}" />
+
+                        <ScrollViewer x:Name="CalendarScroller"
+                                      VerticalScrollMode="Auto"
+                                      VerticalScrollBarVisibility="Auto"
+                                      HorizontalScrollMode="Disabled"
+                                      HorizontalScrollBarVisibility="Disabled"
+                                      Grid.Row="1">
+                            <Grid MinHeight="{TemplateBinding CanvasMinHeight}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <local:DayView IsDateVisible="False"
+                                               IsHourVisible="True"
+                                               Day="{Binding ViewModel.Days[0], RelativeSource={RelativeSource TemplatedParent}}"
+                                               DayHeaderTemplate="{Binding Path=(local:AttachedProperties.DayHeaderTemplate), ElementName=TemplateRoot}"
+                                               HourItemTemplate="{Binding Path=(local:AttachedProperties.HourItemTemplate), ElementName=TemplateRoot}" />
+
+                                <ItemsControl ItemsSource="{Binding ViewModel.Days, RelativeSource={RelativeSource TemplatedParent}}"
+                                              Grid.Column="1">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <local:DayView IsDateVisible="True"
+                                                           IsHourVisible="False"
+                                                           Day="{Binding Path=DataContext, RelativeSource={RelativeSource TemplatedParent}}"
+                                                           DayHeaderTemplate="{Binding Path=(local:AttachedProperties.DayHeaderTemplate), ElementName=TemplateRoot}"
+                                                           HourItemTemplate="{Binding Path=(local:AttachedProperties.HourItemTemplate), ElementName=TemplateRoot}" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <local:UniformGrid Rows="1" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
+                            </Grid>
+                        </ScrollViewer>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
