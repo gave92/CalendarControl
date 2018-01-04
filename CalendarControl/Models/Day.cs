@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using Template10.Mvvm;
 using Windows.System.UserProfile;
@@ -49,28 +48,24 @@ namespace CalendarControl
                     base.RaisePropertyChanged("DayOfYear");
                     base.RaisePropertyChanged("Month");
                     base.RaisePropertyChanged("Year");
-                }                
+                }
             }
         }
 
         public IList<Hour> Hours { get; set; }
 
-        public ObservableCollection<Event> Events { get; set; }
-
         private readonly CultureInfo Culture;
 
         public Day(DateTimeOffset date, int startH = 0, int endH = 23)
         {
-            this.Date = date;
+            this.Date = date;            
             this.Culture = new CultureInfo(GlobalizationPreferences.Languages[0]);
-
-            this.Events = new ObservableCollection<Event>();
 
             this.Hours = new List<Hour>();
             for (var h = startH; h <= endH; h++)
             {
                 Hours.Add(new Hour(date.Date.AddHours(h)));
             }
-        }        
+        }
     }
 }

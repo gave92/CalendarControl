@@ -64,9 +64,9 @@
                     BorderBrush="{ThemeResource DayHeaderBorderBrush}"
                     BorderThickness="{ThemeResource DayHeaderBorderThickness}"
                     Margin="0,0,0,4">
-            <TextBlock Text="{Binding Day.DayOfWeek}"
+            <TextBlock Text="{Binding DayOfWeek}"
                        Style="{ThemeResource DayHeaderTextBlockStyle}" />
-            <TextBlock Text="{Binding Day.DayOfYear}"
+            <TextBlock Text="{Binding DayOfYear}"
                        Style="{ThemeResource DayHeaderTextBlockStyle}" />
         </StackPanel>
     </DataTemplate>

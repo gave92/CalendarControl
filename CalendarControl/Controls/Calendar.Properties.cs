@@ -22,15 +22,15 @@ namespace CalendarControl
             set { SetValue(HeaderTemplateProperty, value); }
         }
 
-        internal ICalendarViewModel ViewModel
+        internal CalendarViewModel ViewModel
         {
-            get { return (ICalendarViewModel)GetValue(ViewModelProperty); }
+            get { return (CalendarViewModel)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for ViewModel.  This enables animation, styling, binding, etc...
         internal static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register("ViewModel", typeof(ICalendarViewModel), typeof(Calendar), new PropertyMetadata(null));
+            DependencyProperty.Register("ViewModel", typeof(CalendarViewModel), typeof(Calendar), new PropertyMetadata(null));
 
         public DataTemplate DayHeaderTemplate
         {

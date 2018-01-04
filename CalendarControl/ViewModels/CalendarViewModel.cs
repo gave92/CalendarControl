@@ -7,7 +7,7 @@ using Windows.Foundation;
 
 namespace CalendarControl
 {
-    public class CalendarViewModel : BindableBase, ICalendarViewModel
+    public class CalendarViewModel : BindableBase
     {
         public string Year
         {
@@ -101,7 +101,7 @@ namespace CalendarControl
             if (day == null) return;
             var begin = day.Hours.First(h => h.IsSelected);
             var end = day.Hours.Last(h => h.IsSelected);
-            day.Events.Add(new Event(begin.Time, end.Time.AddHours(1), "New event"));
+            EventManager.Instance.AddEvent(new Event(begin.Time, end.Time.AddHours(1), "New event"));
             ((List<Hour>)day.Hours).ForEach(h => h.IsSelected = false);
         }
 
@@ -110,11 +110,7 @@ namespace CalendarControl
 
         private void RemoveEvent()
         {
-            foreach (var day in Days)
-            {
-                while (day.Events.Any(e => e.IsSelected))
-                    day.Events.Remove(day.Events.First(e => e.IsSelected));
-            }
+            EventManager.Instance.RemoveSelectedEvents();
         }
 
         private DelegateCommand<int> _shiftDaysCommand;

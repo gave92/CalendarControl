@@ -6,8 +6,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:EventItem">
-                    <Grid x:Name="RootGrid"
-                          Background="{Binding Event.Color}"
+                    <Grid Background="{Binding Event.Color}"
                           BorderThickness="{ThemeResource EventBorderThickness}"
                           BorderBrush="{ThemeResource EventBorderBrush}">
 

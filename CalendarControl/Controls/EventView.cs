@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Data;
 
 // The Templated Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234235
 
@@ -11,6 +12,8 @@ namespace CalendarControl
 {
     public sealed partial class EventView : Control
     {
+        public ICollectionView Events { get; private set; }
+
         public EventView()
         {
             this.DefaultStyleKey = typeof(EventView);
@@ -26,15 +29,18 @@ namespace CalendarControl
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            this.OnEventsCollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            var e = new CollectionView.VectorChangedEventArgs(CollectionChange.Reset);
+            this.OnEventsCollectionChanged(null, e);
         }
 
-        private void OnEventsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void OnEventsCollectionChanged(IObservableVector<object> sender, IVectorChangedEventArgs args)
         {
             var canvas = GetTemplateChild("RootCanvas") as Canvas;
             if (canvas == null) return;
 
-            if (e.Action == NotifyCollectionChangedAction.Reset)
+            var e = args as CollectionView.VectorChangedEventArgs;
+
+            if (e.CollectionChange == CollectionChange.Reset)
             {
                 canvas.Children.Clear();
                 foreach (Event ev in Events)
@@ -43,23 +49,14 @@ namespace CalendarControl
                     canvas.Children.Add(rect);
                 }
             }
-            else
+            else if (e.CollectionChange == CollectionChange.ItemInserted)
             {
-                if (e.NewItems != null)
-                {
-                    foreach (Event ev in e.NewItems.Cast<Event>())
-                    {
-                        var rect = new EventItem() { Event = ev };
-                        canvas.Children.Add(rect);
-                    }
-                }
-                if (e.OldItems != null)
-                {
-                    foreach (Event ev in e.OldItems.Cast<Event>())
-                    {
-                        canvas.Children.Remove(canvas.Children.Single(item => ev == (item as EventItem).Event));
-                    }
-                }
+                var rect = new EventItem() { Event = e.Item as Event };
+                canvas.Children.Add(rect);
+            }
+            else if (e.CollectionChange == CollectionChange.ItemRemoved)
+            {
+                canvas.Children.Remove(canvas.Children.Single(item => e.Item as Event == (item as EventItem).Event));
             }
 
             UpdateEventsHeight();
@@ -74,32 +71,17 @@ namespace CalendarControl
 
             foreach (var item in canvas.Children.Cast<FrameworkElement>())
             {
-                var ev = Events.Single(e => e == (item as EventItem).Event);
-                ev.Concurrent = GetConcurrentEvents(ev);
+                var ev = Events.Cast<Event>().Single(e => e == (item as EventItem).Event);
+                ev.Concurrent = EventManager.Instance.GetConcurrentEvents(ev);
             }
 
             foreach (var item in canvas.Children.Cast<FrameworkElement>())
             {
-                var ev = Events.Single(e => e == (item as EventItem).Event);
+                var ev = Events.Cast<Event>().Single(e => e == (item as EventItem).Event);
                 var concurrent = ev.GetConcurrent().ToList();
                 item.Width = Math.Max(0, (canvas.ActualWidth - 20) / (double)concurrent.Count);
                 Canvas.SetLeft(item, concurrent.IndexOf(ev) * item.Width);
             }
-        }
-
-        private List<Event> GetConcurrentEvents(Event ev)
-        {
-            var cevs = new List<Event>();
-            foreach (var other in Events)
-            {
-                var endsBefore = (ev.EndDate <= other.StartDate);
-                var startsAfter = (ev.StartDate >= other.EndDate);
-                if (!(endsBefore || startsAfter))
-                {
-                    cevs.Add(other);
-                }
-            }
-            return cevs;
         }
 
         private void UpdateEventsHeight()
@@ -110,9 +92,25 @@ namespace CalendarControl
 
             foreach (var item in canvas.Children.Cast<FrameworkElement>())
             {
-                var ev = Events.Single(e => e == (item as EventItem).Event);
+                var ev = Events.Cast<Event>().Single(e => e == (item as EventItem).Event);
                 item.Height = (ev.EndDate - ev.StartDate).Hours * canvas.ActualHeight / (double)ListItemCount;
                 Canvas.SetTop(item, ev.StartDate.Hour * canvas.ActualHeight / (double)ListItemCount);
+            }
+        }
+
+        private void OnDayChanged(DependencyPropertyChangedEventArgs e)
+        {
+            if (Events != null)
+            {
+                this.Events.VectorChanged -= OnEventsCollectionChanged;
+            }
+
+            var nday = (Day)e.NewValue;
+
+            if (nday != null)
+            {
+                this.Events = EventManager.Instance.ForDay(nday.Date);
+                this.Events.VectorChanged += OnEventsCollectionChanged ;
             }
         }
     }

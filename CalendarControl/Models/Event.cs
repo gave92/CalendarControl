@@ -52,6 +52,7 @@ namespace CalendarControl
             set { Set(ref _endDate, value); }
         }
 
+        [JsonIgnore]
         public Brush Color
         {
             get
@@ -60,6 +61,7 @@ namespace CalendarControl
             }
         }
 
+        [JsonIgnore]
         public IList<Event> Concurrent { get; set; }
         public ISet<Event> GetConcurrent(ISet<Event> set = null)
         {
