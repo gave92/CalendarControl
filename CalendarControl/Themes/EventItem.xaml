@@ -6,7 +6,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:EventItem">
-                    <Grid Background="{Binding Event.Color}"
+                    <Grid Background="{Binding Color}"
                           BorderThickness="{ThemeResource EventBorderThickness}"
                           BorderBrush="{ThemeResource EventBorderBrush}">
 
@@ -37,7 +37,7 @@
 
                         <TextBlock x:Name="Title"
                                    MaxLines="2"
-                                   Text="{Binding Event.Title}"
+                                   Text="{Binding Title}"
                                    VerticalAlignment="Top"
                                    Style="{ThemeResource EventTitleTextBlockStyle}" />
                     </Grid>

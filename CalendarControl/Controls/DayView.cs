@@ -23,7 +23,7 @@ namespace CalendarControl
         public DayView()
         {
             this.DefaultStyleKey = typeof(DayView);
-            this.DataContext = this;
+            this.DataContextChanged += (s,e) => { Day = e.NewValue as Day; };
         }
 
         private void OnDayChanged(DependencyPropertyChangedEventArgs e)

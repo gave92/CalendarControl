@@ -46,7 +46,7 @@
 
                                 <local:DayView IsDateVisible="False"
                                                IsHourVisible="True"
-                                               Day="{Binding ViewModel.Days[0], RelativeSource={RelativeSource TemplatedParent}}"
+                                               DataContext="{Binding ViewModel.Days[0], RelativeSource={RelativeSource TemplatedParent}}"
                                                DayHeaderTemplate="{Binding Path=(local:AttachedProperties.DayHeaderTemplate), ElementName=TemplateRoot}"
                                                HourItemTemplate="{Binding Path=(local:AttachedProperties.HourItemTemplate), ElementName=TemplateRoot}" />
 
@@ -56,7 +56,6 @@
                                         <DataTemplate>
                                             <local:DayView IsDateVisible="True"
                                                            IsHourVisible="False"
-                                                           Day="{Binding Path=DataContext, RelativeSource={RelativeSource TemplatedParent}}"
                                                            DayHeaderTemplate="{Binding Path=(local:AttachedProperties.DayHeaderTemplate), ElementName=TemplateRoot}"
                                                            HourItemTemplate="{Binding Path=(local:AttachedProperties.HourItemTemplate), ElementName=TemplateRoot}" />
                                         </DataTemplate>

@@ -27,7 +27,7 @@
                         </Grid.RowDefinitions>
 
                         <ContentPresenter x:Name="DayHeader"
-                                          Content="{Binding Day}"
+                                          Content="{Binding}"
                                           ContentTemplate="{TemplateBinding DayHeaderTemplate}" />
 
                         <Canvas x:Name="DayCanvas"
@@ -36,9 +36,9 @@
                                 Background="Transparent" />
 
                         <local:EventView Grid.Row="1"
-                                         ListItemCount="{Binding Day.Hours.Count}"
+                                         ListItemCount="{Binding Hours.Count}"
                                          x:Name="DayEvents"
-                                         Day="{Binding Day}" />
+                                         Day="{Binding}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

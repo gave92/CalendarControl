@@ -10,7 +10,7 @@ namespace CalendarControl
         public EventItem()
         {
             this.DefaultStyleKey = typeof(EventItem);
-            this.DataContext = this;
+            this.DataContextChanged += (s, e) => { Event = e.NewValue as Event; };
             this.Tapped += OnEventTapped;
             this.SizeChanged += (s, e) => OnEventSizeChanged();
         }

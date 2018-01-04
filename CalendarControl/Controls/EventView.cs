@@ -45,13 +45,13 @@ namespace CalendarControl
                 canvas.Children.Clear();
                 foreach (Event ev in Events)
                 {
-                    var rect = new EventItem() { Event = ev };
+                    var rect = new EventItem() { DataContext = ev };
                     canvas.Children.Add(rect);
                 }
             }
             else if (e.CollectionChange == CollectionChange.ItemInserted)
             {
-                var rect = new EventItem() { Event = e.Item as Event };
+                var rect = new EventItem() { DataContext = e.Item as Event };
                 canvas.Children.Add(rect);
             }
             else if (e.CollectionChange == CollectionChange.ItemRemoved)
