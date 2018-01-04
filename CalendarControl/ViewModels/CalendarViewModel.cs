@@ -7,7 +7,7 @@ using Windows.Foundation;
 
 namespace CalendarControl
 {
-    public class CalendarViewModel : BindableBase
+    public class CalendarViewModel : BindableBase, ICalendarViewModel
     {
         public string Year
         {
