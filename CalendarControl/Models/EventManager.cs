@@ -53,7 +53,25 @@ namespace CalendarControl
             await SaveEvents();
         }
 
-        public List<Event> GetConcurrentEvents(Event ev)
+        public ISet<Event> GetConcurrentEvents(Event @event, ISet<Event> set = null)
+        {
+            if (set == null)
+            {
+                set = new SortedSet<Event>();
+            }
+
+            foreach (var ev in GetImmediateConcurrentEvents(@event))
+            {
+                if (!set.Contains(ev))
+                {
+                    set.Add(ev);
+                    set.UnionWith(GetConcurrentEvents(ev, set));
+                }
+            }
+            return set;
+        }
+
+        private List<Event> GetImmediateConcurrentEvents(Event ev)
         {
             var cevs = new List<Event>();
             foreach (var other in Events)

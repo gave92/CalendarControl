@@ -61,26 +61,6 @@ namespace CalendarControl
             }
         }
 
-        [JsonIgnore]
-        public IList<Event> Concurrent { get; set; }
-        public ISet<Event> GetConcurrent(ISet<Event> set = null)
-        {
-            if (set == null)
-            {
-                set = new SortedSet<Event>();
-            }
-
-            foreach (var ev in Concurrent)
-            {
-                if (!set.Contains(ev))
-                {
-                    set.Add(ev);
-                    set.UnionWith(ev.GetConcurrent(set));
-                }
-            }
-            return set;
-        }
-
         [JsonConstructor]
         public Event() { }
 

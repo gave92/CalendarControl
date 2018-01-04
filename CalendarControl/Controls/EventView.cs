@@ -72,13 +72,7 @@ namespace CalendarControl
             foreach (var item in canvas.Children.Cast<FrameworkElement>())
             {
                 var ev = Events.Cast<Event>().Single(e => e == (item as EventItem).Event);
-                ev.Concurrent = EventManager.Instance.GetConcurrentEvents(ev);
-            }
-
-            foreach (var item in canvas.Children.Cast<FrameworkElement>())
-            {
-                var ev = Events.Cast<Event>().Single(e => e == (item as EventItem).Event);
-                var concurrent = ev.GetConcurrent().ToList();
+                var concurrent = EventManager.Instance.GetConcurrentEvents(ev).ToList();
                 item.Width = Math.Max(0, (canvas.ActualWidth - 20) / (double)concurrent.Count);
                 Canvas.SetLeft(item, concurrent.IndexOf(ev) * item.Width);
             }
