@@ -7,7 +7,7 @@ using Windows.Foundation;
 
 namespace CalendarControl
 {
-    public class CalendarViewModel : BindableBase, ICalendarViewModel
+    internal class CalendarViewModel : BindableBase, ICalendarViewModel
     {
         public string Year
         {
@@ -53,14 +53,7 @@ namespace CalendarControl
             base.RaisePropertyChanged("Month");
             base.RaisePropertyChanged("Year");
         }
-
-        public CalendarViewModel(DateTimeOffset? _startDate = null)
-        {
-            this.Days = new ObservableCollection<Day>();
-            var startDate = _startDate?.Date ?? DateTimeOffset.Now.Date;
-            this.Days.Add(new Day(startDate));
-        }
-
+        
         public void SizeChanged(Size size)
         {
             if (size.Width > 700)
@@ -92,6 +85,14 @@ namespace CalendarControl
             }
         }
 
+        public CalendarViewModel(DateTimeOffset? _startDate = null, EventManager _manager = null)
+        {
+            EventManager.Instance = _manager ?? EventManager.CreateEventManager();
+            this.Days = new ObservableCollection<Day>();
+            var startDate = _startDate?.Date ?? DateTimeOffset.Now.Date;
+            this.Days.Add(new Day(startDate));
+        }
+
         private DelegateCommand _addEventCommand;
         public DelegateCommand AddEventCommand => _addEventCommand ?? (_addEventCommand = new DelegateCommand(AddEvent));
 
@@ -101,7 +102,7 @@ namespace CalendarControl
             if (day == null) return;
             var begin = day.Hours.First(h => h.IsSelected);
             var end = day.Hours.Last(h => h.IsSelected);
-            EventManager.Instance.AddEvent(new Event(begin.Time, end.Time.AddHours(1), "New event"));
+            EventManager.Instance?.AddEvent(new Event(begin.Time, end.Time.AddHours(1), "New event"));
             ((List<Hour>)day.Hours).ForEach(h => h.IsSelected = false);
         }
 
@@ -110,7 +111,7 @@ namespace CalendarControl
 
         private void RemoveEvent()
         {
-            EventManager.Instance.RemoveSelectedEvents();
+            EventManager.Instance?.RemoveEvents(e => e.IsSelected);
         }
 
         private DelegateCommand<int> _shiftDaysCommand;

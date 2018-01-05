@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -71,7 +72,7 @@ namespace CalendarControl
             foreach (var item in canvas.Children.Cast<FrameworkElement>())
             {
                 var ev = Events.Cast<Event>().Single(e => e == (item as EventItem).Event);
-                var concurrent = EventManager.Instance.GetConcurrentEvents(ev).ToList();
+                var concurrent = EventManager.Instance?.GetConcurrentEvents(ev).ToList() ?? new List<Event>();
                 item.Width = Math.Max(0, (canvas.ActualWidth - 20) / (double)concurrent.Count);
                 Canvas.SetLeft(item, concurrent.IndexOf(ev) * item.Width);
             }
@@ -102,8 +103,9 @@ namespace CalendarControl
 
             if (nday != null)
             {
-                this.Events = EventManager.Instance.ForDay(nday.Date);
-                this.Events.VectorChanged += OnEventsCollectionChanged ;
+                this.Events = EventManager.Instance?.ForDay(nday.Date);
+                if (Events != null)
+                    this.Events.VectorChanged += OnEventsCollectionChanged;
             }
         }
     }

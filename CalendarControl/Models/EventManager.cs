@@ -18,10 +18,11 @@ namespace CalendarControl
         {
             get
             {
-                if (_manager == null)
-                    _manager = new EventManager();
+                // if (_manager == null)
+                // _manager = new EventManager();
                 return _manager;
             }
+            set { _manager = value; }
         }
 
         private SemaphoreSlim SemaphoreFile;
@@ -32,6 +33,11 @@ namespace CalendarControl
             this.Events = new ObservableCollection<Event>();
             this.SemaphoreFile = new SemaphoreSlim(1, 1);
             this.LoadEvents();
+        }
+
+        public static EventManager CreateEventManager()
+        {
+            return new EventManager();
         }
 
         public async void AddEvent(Event ev)
@@ -46,10 +52,10 @@ namespace CalendarControl
             await SaveEvents();
         }
 
-        public async void RemoveSelectedEvents()
+        public async void RemoveEvents(Func<Event, bool> predicate)
         {
-            while (Events.Any(e => e.IsSelected))
-                Events.Remove(Events.First(e => e.IsSelected));
+            while (Events.Any(predicate))
+                Events.Remove(Events.First(predicate));
             await SaveEvents();
         }
 
@@ -101,7 +107,7 @@ namespace CalendarControl
                     Events.Add(ev);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex);
             }
