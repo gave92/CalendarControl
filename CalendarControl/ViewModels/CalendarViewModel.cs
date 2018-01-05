@@ -62,7 +62,7 @@ namespace CalendarControl.ViewModels
             base.RaisePropertyChanged("Month");
             base.RaisePropertyChanged("Year");
         }
-
+        
         public virtual void SizeChanged(Size size)
         {
             if (size.Width > 700)
@@ -103,9 +103,9 @@ namespace CalendarControl.ViewModels
         }
 
         private DelegateCommand _addEventCommand;
-        public DelegateCommand AddEventCommand => _addEventCommand ?? (_addEventCommand = new DelegateCommand(AddEvent));
+        public virtual DelegateCommand AddEventCommand => _addEventCommand ?? (_addEventCommand = new DelegateCommand(AddEvent));
 
-        public virtual void AddEvent()
+        private void AddEvent()
         {
             var day = Days.FirstOrDefault(d => d.Hours.Any(h => h.IsSelected));
             if (day == null) return;
@@ -116,17 +116,17 @@ namespace CalendarControl.ViewModels
         }
 
         private DelegateCommand _removeEventCommand;
-        public DelegateCommand RemoveEventCommand => _removeEventCommand ?? (_removeEventCommand = new DelegateCommand(RemoveEvent));
+        public virtual DelegateCommand RemoveEventCommand => _removeEventCommand ?? (_removeEventCommand = new DelegateCommand(RemoveEvent));
 
-        public virtual void RemoveEvent()
+        private void RemoveEvent()
         {
             EventManager?.RemoveEventsAsync(e => e.IsSelected);
         }
 
         private DelegateCommand<int> _shiftDaysCommand;
-        public DelegateCommand<int> ShiftDaysCommand => _shiftDaysCommand ?? (_shiftDaysCommand = new DelegateCommand<int>(ShiftDays));
+        public virtual DelegateCommand<int> ShiftDaysCommand => _shiftDaysCommand ?? (_shiftDaysCommand = new DelegateCommand<int>(ShiftDays));
 
-        public virtual void ShiftDays(int offset)
+        private void ShiftDays(int offset)
         {
             while (offset > 0)
             {

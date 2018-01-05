@@ -11,15 +11,7 @@ namespace CalendarControl.Models
         public bool IsSelected
         {
             get { return _isSelected; }
-            set
-            {
-                if (_isSelected != value)
-                {
-                    _isSelected = value;
-                    base.RaisePropertyChanged();
-                    base.RaisePropertyChanged("VisualState");
-                }                
-            }
+            set { Set(ref _isSelected, value); }
         }
 
         private DateTimeOffset _time;
@@ -36,7 +28,6 @@ namespace CalendarControl.Models
                     base.RaisePropertyChanged("IsToday");
                     base.RaisePropertyChanged("IsFuture");
                     base.RaisePropertyChanged("Short");
-                    base.RaisePropertyChanged("VisualState");
                 }                
             }
         }

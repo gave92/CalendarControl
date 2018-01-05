@@ -61,7 +61,8 @@ namespace CalendarControl
             {
                 if (_foreground == null) return;
                 var hour = sender as Hour;
-                var sprite = _foreground.Children.ElementAtOrDefault(Day.Hours.IndexOf(hour)) as SpriteVisual;
+                var idx = Day.Hours.Select((h, i) => new { Hour = h, Index = i }).Single(o => o.Hour.Time == hour.Time).Index;
+                var sprite = _foreground.Children.ElementAtOrDefault(idx) as SpriteVisual;
                 SetHourBackground(sprite, hour.IsSelected);
             }
         }
