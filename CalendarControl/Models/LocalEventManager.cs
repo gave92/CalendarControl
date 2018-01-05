@@ -44,7 +44,7 @@ namespace CalendarControl.Models
             await SaveEvents();
         }        
 
-        public async Task LoadEvents()
+        public virtual async Task LoadEvents()
         {
             await SemaphoreFile.WaitAsync();
 
@@ -69,7 +69,7 @@ namespace CalendarControl.Models
             }
         }
 
-        public async Task SaveEvents()
+        public virtual async Task SaveEvents()
         {
             await SemaphoreFile.WaitAsync();
 
