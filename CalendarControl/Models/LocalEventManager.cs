@@ -7,90 +7,39 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage;
-using Windows.UI.Xaml.Data;
 
 namespace CalendarControl
 {
-    public class EventManager
+    public class LocalEventManager : IEventManager
     {
-        private static EventManager _manager;
-        public static EventManager Instance
-        {
-            get
-            {
-                // if (_manager == null)
-                // _manager = new EventManager();
-                return _manager;
-            }
-            set { _manager = value; }
-        }
-
         private SemaphoreSlim SemaphoreFile;
         private ObservableCollection<Event> Events { get; set; }
 
-        private EventManager()
+        public LocalEventManager()
         {
             this.Events = new ObservableCollection<Event>();
             this.SemaphoreFile = new SemaphoreSlim(1, 1);
             this.LoadEvents();
         }
 
-        public static EventManager CreateEventManager()
-        {
-            return new EventManager();
-        }
-
-        public async void AddEvent(Event ev)
+        public async Task AddEventAsync(Event ev)
         {
             Events.Add(ev);
             await SaveEvents();
         }
 
-        public async void RemoveEvent(Event ev)
+        public async Task RemoveEventAsync(Event ev)
         {
             Events.Remove(ev);
             await SaveEvents();
         }
 
-        public async void RemoveEvents(Func<Event, bool> predicate)
+        public async Task RemoveEventsAsync(Func<Event, bool> predicate)
         {
             while (Events.Any(predicate))
                 Events.Remove(Events.First(predicate));
             await SaveEvents();
-        }
-
-        public ISet<Event> GetConcurrentEvents(Event @event, ISet<Event> set = null)
-        {
-            if (set == null)
-            {
-                set = new SortedSet<Event>();
-            }
-
-            foreach (var ev in GetImmediateConcurrentEvents(@event))
-            {
-                if (!set.Contains(ev))
-                {
-                    set.Add(ev);
-                    set.UnionWith(GetConcurrentEvents(ev, set));
-                }
-            }
-            return set;
-        }
-
-        private List<Event> GetImmediateConcurrentEvents(Event ev)
-        {
-            var cevs = new List<Event>();
-            foreach (var other in Events)
-            {
-                var endsBefore = (ev.EndDate <= other.StartDate);
-                var startsAfter = (ev.StartDate >= other.EndDate);
-                if (!(endsBefore || startsAfter))
-                {
-                    cevs.Add(other);
-                }
-            }
-            return cevs;
-        }
+        }        
 
         public async Task LoadEvents()
         {
@@ -133,12 +82,12 @@ namespace CalendarControl
             }
         }
 
-        public ICollectionView ForDay(DateTimeOffset date)
+        public DailyEventManager ForDay(DateTimeOffset date)
         {
             var view = new CollectionView.ListCollectionView();
             view.Source = Events;
             view.Filter = (ev) => (ev as Event).StartDate.Date == date.Date || (ev as Event).EndDate.Date == date.Date;
-            return view;
+            return new DailyEventManager(this, view);
         }
     }
 }

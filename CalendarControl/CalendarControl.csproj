@@ -111,8 +111,10 @@
     <Compile Include="Controls\EventItem.Properties.cs" />
     <Compile Include="Controls\EventView.cs" />
     <Compile Include="Controls\EventView.Properties.cs" />
+    <Compile Include="Interfaces\IEventManager.cs" />
+    <Compile Include="Models\DailyEventManager.cs" />
     <Compile Include="Models\Event.cs" />
-    <Compile Include="Models\EventManager.cs" />
+    <Compile Include="Models\LocalEventManager.cs" />
     <Compile Include="Mvvm\DelegateCommand.cs" />
     <Compile Include="Mvvm\ExpressionExtensions.cs" />
     <Compile Include="Utils\AttachedProperties.cs" />

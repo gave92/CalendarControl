@@ -7,7 +7,7 @@ using Windows.Foundation;
 
 namespace CalendarControl
 {
-    internal class CalendarViewModel : BindableBase, ICalendarViewModel
+    public class CalendarViewModel : BindableBase, ICalendarViewModel
     {
         public string Year
         {
@@ -17,6 +17,13 @@ namespace CalendarControl
         public string Month
         {
             get { return Days.FirstOrDefault()?.Month; }
+        }
+
+        private IEventManager _eventManager;
+        public IEventManager EventManager
+        {
+            get { return _eventManager; }
+            set { Set(ref _eventManager, value); }
         }
 
         private ObservableCollection<Day> _days;
@@ -77,7 +84,7 @@ namespace CalendarControl
             while (NumberOfDays > Days.Count)
             {
                 startDate = startDate.AddDays(1);
-                this.Days.Add(new Day(startDate));
+                this.Days.Add(new Day(startDate, EventManager?.ForDay(startDate)));
             }
             while (NumberOfDays < Days.Count)
             {
@@ -85,12 +92,12 @@ namespace CalendarControl
             }
         }
 
-        public CalendarViewModel(DateTimeOffset? _startDate = null, EventManager _manager = null)
+        public CalendarViewModel(DateTimeOffset? _startDate = null, IEventManager _manager = null)
         {
-            EventManager.Instance = _manager ?? EventManager.CreateEventManager();
+            this.EventManager = _manager ?? new LocalEventManager();
             this.Days = new ObservableCollection<Day>();
             var startDate = _startDate?.Date ?? DateTimeOffset.Now.Date;
-            this.Days.Add(new Day(startDate));
+            this.Days.Add(new Day(startDate, EventManager?.ForDay(startDate)));
         }
 
         private DelegateCommand _addEventCommand;
@@ -102,7 +109,7 @@ namespace CalendarControl
             if (day == null) return;
             var begin = day.Hours.First(h => h.IsSelected);
             var end = day.Hours.Last(h => h.IsSelected);
-            EventManager.Instance?.AddEvent(new Event(begin.Time, end.Time.AddHours(1), "New event"));
+            EventManager?.AddEventAsync(new Event(begin.Time, end.Time.AddHours(1), "New event"));
             ((List<Hour>)day.Hours).ForEach(h => h.IsSelected = false);
         }
 
@@ -111,7 +118,7 @@ namespace CalendarControl
 
         private void RemoveEvent()
         {
-            EventManager.Instance?.RemoveEvents(e => e.IsSelected);
+            EventManager?.RemoveEventsAsync(e => e.IsSelected);
         }
 
         private DelegateCommand<int> _shiftDaysCommand;
@@ -121,14 +128,16 @@ namespace CalendarControl
         {
             while (offset > 0)
             {
-                var day = new Day(Days.Last().Date.AddDays(1));
+                var date = Days.Last().Date.AddDays(1);
+                var day = new Day(date, EventManager?.ForDay(date));
                 this.Days.Add(day);
                 this.Days.RemoveAt(0);
                 offset--;
             }
             while (offset < 0)
             {
-                var day = new Day(Days.First().Date.AddDays(-1));
+                var date = Days.First().Date.AddDays(-1);
+                var day = new Day(date, EventManager?.ForDay(date));
                 this.Days.Insert(0, day);
                 this.Days.RemoveAt(Days.Count - 1);
                 offset++;

@@ -56,9 +56,17 @@ namespace CalendarControl
 
         private readonly CultureInfo Culture;
 
-        public Day(DateTimeOffset date, int startH = 0, int endH = 23)
+        private DailyEventManager _eventManager;
+        public DailyEventManager EventManager
         {
-            this.Date = date;            
+            get { return _eventManager; }
+            set { Set(ref _eventManager, value); }
+        }
+
+        public Day(DateTimeOffset date, DailyEventManager manager, int startH = 0, int endH = 23)
+        {
+            this.Date = date;                        
+            this.EventManager = manager;
             this.Culture = new CultureInfo(GlobalizationPreferences.Languages[0]);
 
             this.Hours = new List<Hour>();
