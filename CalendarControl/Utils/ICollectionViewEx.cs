@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Windows.UI.Xaml.Data;
 
-namespace CollectionView
+namespace CalendarControl.CollectionView
 {
     //--------------------------------------------------------------------------------
     #region ** ICollectionViewEx

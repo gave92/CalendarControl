@@ -1,7 +1,8 @@
-﻿using System;
+﻿using CalendarControl.Models;
+using System;
 using System.Threading.Tasks;
 
-namespace CalendarControl
+namespace CalendarControl.Interfaces
 {
     public interface IEventManager
     {

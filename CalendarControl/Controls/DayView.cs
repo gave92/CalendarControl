@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using CalendarControl.Models;
+using System.ComponentModel;
 using System.Linq;
 using System.Numerics;
 using Windows.UI;

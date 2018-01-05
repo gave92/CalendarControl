@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using CalendarControl.CollectionView;
+using CalendarControl.Interfaces;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,13 +10,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace CalendarControl
+namespace CalendarControl.Models
 {
     public class LocalEventManager : IEventManager
     {
         private SemaphoreSlim SemaphoreFile;
         private ObservableCollection<Event> Events { get; set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Await.Warning", "CS4014:Await.Warning")]
         public LocalEventManager()
         {
             this.Events = new ObservableCollection<Event>();
@@ -84,7 +87,7 @@ namespace CalendarControl
 
         public DailyEventManager ForDay(DateTimeOffset date)
         {
-            var view = new CollectionView.ListCollectionView();
+            var view = new ListCollectionView();
             view.Source = Events;
             view.Filter = (ev) => (ev as Event).StartDate.Date == date.Date || (ev as Event).EndDate.Date == date.Date;
             return new DailyEventManager(this, view);

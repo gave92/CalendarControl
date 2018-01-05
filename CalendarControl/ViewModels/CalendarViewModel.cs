@@ -1,11 +1,13 @@
-﻿using CalendarControl.Mvvm;
+﻿using CalendarControl.Interfaces;
+using CalendarControl.Models;
+using CalendarControl.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Windows.Foundation;
 
-namespace CalendarControl
+namespace CalendarControl.ViewModels
 {
     public class CalendarViewModel : BindableBase, ICalendarViewModel
     {

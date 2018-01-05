@@ -3,7 +3,7 @@ using System;
 using System.Globalization;
 using Windows.System.UserProfile;
 
-namespace CalendarControl
+namespace CalendarControl.Models
 {
     public class Hour : BindableBase
     {

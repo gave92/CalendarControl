@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml;
+﻿using CalendarControl.Models;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 // Il modello di elemento Controllo utente è documentato all'indirizzo https://go.microsoft.com/fwlink/?LinkId=234236

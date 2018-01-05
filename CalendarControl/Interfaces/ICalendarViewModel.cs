@@ -1,7 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using CalendarControl.Models;
+using System.Collections.ObjectModel;
 using Windows.Foundation;
 
-namespace CalendarControl
+namespace CalendarControl.Interfaces
 {
     public interface ICalendarViewModel
     {

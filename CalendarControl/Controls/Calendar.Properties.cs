@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml;
+﻿using CalendarControl.Interfaces;
+using Windows.UI.Xaml;
 
 namespace CalendarControl
 {

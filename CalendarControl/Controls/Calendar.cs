@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CalendarControl.ViewModels;
+using System;
 using System.Linq;
 using System.Reactive.Linq;
 using Windows.UI.Core;

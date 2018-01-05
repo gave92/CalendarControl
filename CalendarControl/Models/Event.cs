@@ -5,7 +5,7 @@ using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
-namespace CalendarControl
+namespace CalendarControl.Models
 {
     public class Event : BindableBase, IComparable<Event>
     {

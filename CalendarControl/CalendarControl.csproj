@@ -117,7 +117,7 @@
     <Compile Include="Models\LocalEventManager.cs" />
     <Compile Include="Mvvm\DelegateCommand.cs" />
     <Compile Include="Mvvm\ExpressionExtensions.cs" />
-    <Compile Include="Utils\AttachedProperties.cs" />
+    <Compile Include="Controls\AttachedProperties.cs" />
     <Compile Include="Mvvm\BindableBase.cs" />
     <Compile Include="Utils\ICollectionViewEx.cs" />
     <Compile Include="Utils\ListCollectionView.cs" />
@@ -126,7 +126,7 @@
     <Compile Include="Controls\DayView.cs" />
     <Compile Include="Models\Hour.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\UniformGrid.cs" />
+    <Compile Include="Controls\UniformGrid.cs" />
     <Compile Include="Interfaces\ICalendarViewModel.cs" />
     <EmbeddedResource Include="Properties\CalendarControl.rd.xml" />
   </ItemGroup>

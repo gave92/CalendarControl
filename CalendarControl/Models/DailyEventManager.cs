@@ -1,9 +1,10 @@
-﻿using System;
+﻿using CalendarControl.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml.Data;
 
-namespace CalendarControl
+namespace CalendarControl.Models
 {
     public class DailyEventManager
     {

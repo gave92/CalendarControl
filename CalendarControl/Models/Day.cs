@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using Windows.System.UserProfile;
 
-namespace CalendarControl
+namespace CalendarControl.Models
 {
     public class Day : BindableBase
     {

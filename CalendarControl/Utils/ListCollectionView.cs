@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Data;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
-namespace CollectionView
+namespace CalendarControl.CollectionView
 {
     /// <summary>
     /// Simple implementation of the <see cref="ICollectionViewEx"/> interface, 
