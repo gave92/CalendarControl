@@ -6,9 +6,11 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:EventItem">
-                    <Grid Background="{Binding Color}"
-                          BorderThickness="{ThemeResource EventBorderThickness}"
+                    <Grid BorderThickness="{ThemeResource EventBorderThickness}"
                           BorderBrush="{ThemeResource EventBorderBrush}">
+                        <Grid.Background>
+                            <SolidColorBrush Color="{Binding Color}" />
+                        </Grid.Background>
 
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="SizeGroup">

@@ -51,12 +51,18 @@ namespace CalendarControl.Models
             set { Set(ref _endDate, value); }
         }
 
-        [JsonIgnore]
-        public Brush Color
+        private Color _color;
+        public Color Color
         {
             get
             {
-                return new SolidColorBrush((Color)Application.Current.Resources["EventBackgroundColor"]);
+                if (_color == null)
+                    _color = (Color)Application.Current.Resources["EventBackgroundColor"];
+                return _color;
+            }
+            set
+            {
+                _color = value;
             }
         }
 

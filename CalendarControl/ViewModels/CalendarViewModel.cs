@@ -94,12 +94,12 @@ namespace CalendarControl.ViewModels
             }
         }
 
-        public CalendarViewModel(DateTimeOffset? _startDate = null, IEventManager _manager = null)
+        public CalendarViewModel(DateTimeOffset? startDate = null, IEventManager eventManager = null)
         {
-            this.EventManager = _manager ?? new LocalEventManager();
+            this.EventManager = eventManager ?? new LocalEventManager();
             this.Days = new ObservableCollection<Day>();
-            var startDate = _startDate?.Date ?? DateTimeOffset.Now.Date;
-            this.Days.Add(new Day(startDate, EventManager?.ForDay(startDate)));
+            var std = startDate?.Date ?? DateTimeOffset.Now.Date;
+            this.Days.Add(new Day(std, EventManager?.ForDay(std)));
         }
 
         private DelegateCommand _addEventCommand;
