@@ -1,7 +1,7 @@
-﻿using System;
+﻿using CalendarControl.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Template10.Mvvm;
 using Windows.System.UserProfile;
 
 namespace CalendarControl

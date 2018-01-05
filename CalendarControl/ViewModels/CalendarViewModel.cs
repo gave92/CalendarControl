@@ -1,8 +1,8 @@
-﻿using System;
+﻿using CalendarControl.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Template10.Mvvm;
 using Windows.Foundation;
 
 namespace CalendarControl

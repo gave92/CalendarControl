@@ -2,7 +2,7 @@
 
 namespace CalendarControl
 {
-    internal class AttachedProperties
+    public class AttachedProperties
     {
         public static DataTemplate GetDayHeaderTemplate(DependencyObject obj)
         {

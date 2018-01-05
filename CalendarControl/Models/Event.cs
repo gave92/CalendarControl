@@ -1,7 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using CalendarControl.Mvvm;
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using Template10.Mvvm;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;

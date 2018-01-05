@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Template10.Services.SerializationService;
 using Windows.Storage;
 using Windows.UI.Xaml.Data;
 
@@ -94,7 +94,7 @@ namespace CalendarControl
             {
                 var file = await ApplicationData.Current.LocalFolder.GetFileAsync("Events.txt");
                 var json = await FileIO.ReadTextAsync(file);
-                var value = SerializationService.Json.Deserialize<List<Event>>(json);
+                var value = JsonConvert.DeserializeObject<List<Event>>(json);
 
                 foreach (var ev in value)
                 {
@@ -118,7 +118,7 @@ namespace CalendarControl
             try
             {
                 var file = await ApplicationData.Current.LocalFolder.CreateFileAsync("Events.txt", CreationCollisionOption.ReplaceExisting);
-                var json = SerializationService.Json.Serialize(Events.ToList());
+                var json = JsonConvert.SerializeObject(Events.ToList());
                 await FileIO.WriteTextAsync(file, json);
             }
             finally

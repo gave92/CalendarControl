@@ -113,7 +113,10 @@
     <Compile Include="Controls\EventView.Properties.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\EventManager.cs" />
+    <Compile Include="Mvvm\DelegateCommand.cs" />
+    <Compile Include="Mvvm\ExpressionExtensions.cs" />
     <Compile Include="Utils\AttachedProperties.cs" />
+    <Compile Include="Mvvm\BindableBase.cs" />
     <Compile Include="Utils\ICollectionViewEx.cs" />
     <Compile Include="Utils\ListCollectionView.cs" />
     <Compile Include="ViewModels\CalendarViewModel.cs" />
@@ -129,11 +132,11 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.5</Version>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>10.0.3</Version>
+    </PackageReference>
     <PackageReference Include="System.Reactive">
       <Version>3.1.1</Version>
-    </PackageReference>
-    <PackageReference Include="Template10">
-      <Version>1.1.12</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
