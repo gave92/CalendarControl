@@ -51,8 +51,8 @@ namespace CalendarControl.Models
             set { Set(ref _endDate, value); }
         }
 
-        private Color _color;
-        public Color Color
+        private Color? _color;
+        public Color? Color
         {
             get
             {
