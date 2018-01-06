@@ -50,9 +50,10 @@ namespace CalendarControl.Models
 
             try
             {
+                var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto };
                 var file = await ApplicationData.Current.LocalFolder.GetFileAsync("Events.txt");
                 var json = await FileIO.ReadTextAsync(file);
-                var value = JsonConvert.DeserializeObject<List<Event>>(json);
+                var value = JsonConvert.DeserializeObject<List<Event>>(json, settings);
 
                 foreach (var ev in value)
                 {
@@ -75,8 +76,9 @@ namespace CalendarControl.Models
 
             try
             {
+                var settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto };
                 var file = await ApplicationData.Current.LocalFolder.CreateFileAsync("Events.txt", CreationCollisionOption.ReplaceExisting);
-                var json = JsonConvert.SerializeObject(Events.ToList());
+                var json = JsonConvert.SerializeObject(Events.ToList(), settings);
                 await FileIO.WriteTextAsync(file, json);
             }
             finally
