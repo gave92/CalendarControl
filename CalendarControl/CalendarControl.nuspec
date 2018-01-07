@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Gave.Libs.CalendarControl</id>
+    <version>0.2</version>
+    <title>Calendar control</title>
+    <authors>Marco Gavelli</authors>
+    <owners>Marco Gavelli</owners>
+    <licenseUrl>https://github.com/gave92/CalendarControl/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/gave92/CalendarControl</projectUrl>
+    <iconUrl>https://github.com/gave92/CalendarControl/blob/master/Screenshots/Calendar_Icon.png?raw=true</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Calendar control for UWP with week view and events</description>
+    <releaseNotes>First release.</releaseNotes>
+    <copyright>Copyright 2018 Marco Gavelli</copyright>
+    <tags>calendar schedule events week</tags>
+    <dependencies>
+      <group>
+        <dependency id="System.Reactive" version="3.0.0" />
+        <dependency id="Newtonsoft.Json" version="9.0.1" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\CalendarControl.dll" target="lib\uap10.0" />
+    <!--<file src="bin\Release\CalendarControl.xml" target="lib\uap10.0" />-->
+    <file src="Themes\Generic.xaml" target="lib\uap10.0\Themes"/>
+    <file src="Themes\Calendar.xaml" target="lib\uap10.0\Themes"/>
+    <file src="Themes\Colors.xaml" target="lib\uap10.0\Themes"/>
+    <file src="Themes\DayView.xaml" target="lib\uap10.0\Themes"/>
+    <file src="Themes\Defaults.xaml" target="lib\uap10.0\Themes"/>
+    <file src="Themes\EventItem.xaml" target="lib\uap10.0\Themes"/>
+    <file src="Themes\EventView.xaml" target="lib\uap10.0\Themes"/>
+  </files>
+</package>

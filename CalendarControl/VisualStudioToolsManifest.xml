@@ -1,6 +1,6 @@
 <FileList>
   <File Reference="CalendarControl.dll">
-    <ToolboxItems VSCategory="MG CalendarControl" BlendCategory="MG CalendarControl">
+    <ToolboxItems VSCategory="CalendarControl" BlendCategory="CalendarControl">
       <Item Type="CalendarControl.Calendar" />
     </ToolboxItems>
   </File>
