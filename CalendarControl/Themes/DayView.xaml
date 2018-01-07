@@ -36,7 +36,6 @@
                                 Background="Transparent" />
 
                         <local:EventView Grid.Row="1"
-                                         ListItemCount="{Binding Hours.Count}"
                                          x:Name="DayEvents"
                                          Day="{Binding}" />
                     </Grid>

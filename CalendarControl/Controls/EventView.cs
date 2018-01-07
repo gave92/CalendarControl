@@ -73,7 +73,8 @@ namespace CalendarControl
             {
                 var ev = EventManager.View.Cast<Event>().Single(e => e == (item as EventItem).Event);
                 var concurrent = EventManager.GetConcurrentEvents(ev).ToList();
-                item.Width = Math.Max(0, (canvas.ActualWidth - 20) / (double)(concurrent?.Count ?? 0));
+                var count = (double)(concurrent?.Count ?? 0);
+                item.Width = count > 0 ? Math.Max(0, (canvas.ActualWidth - 20) / count) : 0;
                 Canvas.SetLeft(item, (concurrent?.IndexOf(ev) ?? 0) * item.Width);
             }
         }
@@ -87,8 +88,8 @@ namespace CalendarControl
             foreach (var item in canvas.Children.Cast<FrameworkElement>())
             {
                 var ev = EventManager.View.Cast<Event>().Single(e => e == (item as EventItem).Event);
-                item.Height = (ev.EndDate - ev.StartDate).Hours * canvas.ActualHeight / (double)ListItemCount;
-                Canvas.SetTop(item, ev.StartDate.Hour * canvas.ActualHeight / (double)ListItemCount);
+                item.Height = (ev.EndDate - ev.StartDate).TotalHours * canvas.ActualHeight / (double)Day.Hours.Count;
+                Canvas.SetTop(item, (ev.StartDate.TimeOfDay.TotalHours - Day.Hours[0].Time.Hour) * canvas.ActualHeight / (double)Day.Hours.Count);
             }
         }
 
@@ -106,6 +107,7 @@ namespace CalendarControl
                 this.EventManager = nday.EventManager;
                 if (EventManager != null)
                     this.EventManager.View.VectorChanged += OnEventsCollectionChanged;
+                this.UpdateEventsHeight();
             }
         }
     }
