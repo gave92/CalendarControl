@@ -1,4 +1,5 @@
 ﻿using CalendarControl.Models;
+using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Numerics;
@@ -24,7 +25,7 @@ namespace CalendarControl
         public DayView()
         {
             this.DefaultStyleKey = typeof(DayView);
-            this.DataContextChanged += (s,e) => { Day = e.NewValue as Day; };
+            this.DataContextChanged += (s, e) => { Day = e.NewValue as Day; };
         }
 
         private void OnDayChanged(DependencyPropertyChangedEventArgs e)
@@ -72,6 +73,16 @@ namespace CalendarControl
             this.ToggleDateVisibility();
             this.ToggleHourVisibility();
 
+            if (_canvas != null)
+            {
+                _canvas.PointerPressed -= OnCanvasPointerPressed;
+                _canvas.PointerMoved -= OnCanvasPointerMoved;
+                _canvas.PointerReleased -= OnCanvasPointerLost;
+                _canvas.PointerCaptureLost -= OnCanvasPointerLost;
+                _canvas.PointerExited -= OnCanvasPointerLost;
+                _canvas.SizeChanged -= OnCanvasSizeChanged;
+            }
+
             _canvas = GetTemplateChild("DayCanvas") as Canvas;
             if (_canvas != null)
             {
@@ -81,10 +92,16 @@ namespace CalendarControl
                 _canvas.PointerReleased += OnCanvasPointerLost;
                 _canvas.PointerCaptureLost += OnCanvasPointerLost;
                 _canvas.PointerExited += OnCanvasPointerLost;
-                _canvas.SizeChanged += (s, e) => UpdateCanvas(_canvas);
+                _canvas.SizeChanged += OnCanvasSizeChanged;
             }
 
             base.OnApplyTemplate();
+        }
+
+        private void OnCanvasSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            var canvas = sender as Canvas;
+            this.UpdateCanvas(canvas);
         }
 
         private void SetHourBackground(SpriteVisual sprite, bool selected = false, bool over = false)
@@ -174,7 +191,7 @@ namespace CalendarControl
         private void UpdateCanvas(Canvas canvas)
         {
             if (_foreground.Compositor == null
-                || canvas.ActualHeight == 0) return;            
+                || canvas.ActualHeight == 0) return;
 
             if (IsHourVisible)
             {
