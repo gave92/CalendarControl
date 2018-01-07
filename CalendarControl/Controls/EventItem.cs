@@ -11,12 +11,26 @@ namespace CalendarControl
         public EventItem()
         {
             this.DefaultStyleKey = typeof(EventItem);
-            this.DataContextChanged += (s, e) => { Event = e.NewValue as Event; };
+            this.DataContextChanged += EventItem_DataContextChanged; ;
             this.Tapped += OnEventTapped;
-            this.SizeChanged += (s, e) => OnEventSizeChanged();
+            this.SizeChanged += OnEventSizeChanged;
+            this.Unloaded += EventItem_Unloaded;
         }
 
-        private void OnEventSizeChanged()
+        private void EventItem_Unloaded(object sender, RoutedEventArgs e)
+        {
+            this.Tapped -= OnEventTapped;
+            this.SizeChanged -= OnEventSizeChanged;
+            this.DataContextChanged -= EventItem_DataContextChanged;
+            this.Unloaded -= EventItem_Unloaded;
+        }
+
+        private void EventItem_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs e)
+        {
+            Event = e.NewValue as Event;
+        }
+
+        private void OnEventSizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (this.Width >= NormalMinWidth)
             {
@@ -43,7 +57,7 @@ namespace CalendarControl
         {
             var eventItem = d as EventItem;
             if (eventItem == null) return;
-            eventItem.OnEventSizeChanged();
+            eventItem.OnEventSizeChanged(eventItem, null);
         }
     }
 }

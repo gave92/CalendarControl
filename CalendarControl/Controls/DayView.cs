@@ -1,5 +1,4 @@
 ﻿using CalendarControl.Models;
-using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Numerics;
@@ -25,7 +24,37 @@ namespace CalendarControl
         public DayView()
         {
             this.DefaultStyleKey = typeof(DayView);
-            this.DataContextChanged += (s, e) => { Day = e.NewValue as Day; };
+            this.DataContextChanged += DayView_DataContextChanged;
+            this.Unloaded += DayView_Unloaded;            
+        }
+
+        private void DayView_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs e)
+        {
+            Day = e.NewValue as Day;
+        }
+
+        private void DayView_Unloaded(object sender, RoutedEventArgs e)
+        {
+            if (_canvas != null)
+            {
+                _canvas.PointerPressed -= OnCanvasPointerPressed;
+                _canvas.PointerMoved -= OnCanvasPointerMoved;
+                _canvas.PointerReleased -= OnCanvasPointerLost;
+                _canvas.PointerCaptureLost -= OnCanvasPointerLost;
+                _canvas.PointerExited -= OnCanvasPointerLost;
+                _canvas.SizeChanged -= OnCanvasSizeChanged;
+            }
+
+            if (Day != null)
+            {
+                foreach (var h in Day.Hours)
+                {
+                    h.PropertyChanged -= OnHourChanged;
+                }
+            }
+
+            this.DataContextChanged -= DayView_DataContextChanged;
+            this.Unloaded -= DayView_Unloaded;
         }
 
         private void OnDayChanged(DependencyPropertyChangedEventArgs e)

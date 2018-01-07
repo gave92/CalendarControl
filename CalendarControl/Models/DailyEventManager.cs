@@ -1,14 +1,14 @@
-﻿using CalendarControl.Interfaces;
+﻿using CalendarControl.CollectionView;
+using CalendarControl.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Windows.UI.Xaml.Data;
 
 namespace CalendarControl.Models
 {
     public class DailyEventManager
     {
-        public ICollectionView View { get; private set; }
+        public ListCollectionView View { get; private set; }
 
         private WeakReference<IEventManager> _eventManager;
         public IEventManager EventManager
@@ -25,7 +25,7 @@ namespace CalendarControl.Models
             }
         }
 
-        public DailyEventManager(IEventManager manager, ICollectionView view)
+        public DailyEventManager(IEventManager manager, ListCollectionView view)
         {
             this.View = view;
             this.EventManager = manager;
