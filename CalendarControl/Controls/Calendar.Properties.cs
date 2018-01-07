@@ -5,6 +5,16 @@ namespace CalendarControl
 {
     public partial class Calendar
     {
+        public bool IsHourSelectionEnabled
+        {
+            get { return (bool)GetValue(IsHourSelectionEnabledProperty); }
+            set { SetValue(IsHourSelectionEnabledProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsHourSelectionEnabled.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsHourSelectionEnabledProperty =
+            DependencyProperty.Register("IsHourSelectionEnabled", typeof(bool), typeof(Calendar), new PropertyMetadata(true));
+
         /// <summary>
         /// Identifies the <see cref="HeaderTemplate"/> dependency property.
         /// </summary>

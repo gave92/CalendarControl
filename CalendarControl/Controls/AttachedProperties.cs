@@ -4,6 +4,20 @@ namespace CalendarControl
 {
     public class AttachedProperties
     {
+        public static bool GetIsHourSelectionEnabled(DependencyObject obj)
+        {
+            return (bool)obj.GetValue(IsHourSelectionEnabledProperty);
+        }
+
+        public static void SetIsHourSelectionEnabled(DependencyObject obj, bool value)
+        {
+            obj.SetValue(IsHourSelectionEnabledProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for IsHourSelectionEnabled.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsHourSelectionEnabledProperty =
+            DependencyProperty.RegisterAttached("IsHourSelectionEnabled", typeof(bool), typeof(AttachedProperties), new PropertyMetadata(true));
+
         public static DataTemplate GetDayHeaderTemplate(DependencyObject obj)
         {
             return (DataTemplate)obj.GetValue(DayHeaderTemplateProperty);

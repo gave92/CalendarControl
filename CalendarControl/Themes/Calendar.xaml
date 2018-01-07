@@ -9,6 +9,8 @@
                 Value="{StaticResource DayHeaderTemplate}" />
         <Setter Property="HourItemTemplate"
                 Value="{StaticResource HourItemTemplate}" />
+        <Setter Property="IsHourSelectionEnabled"
+                Value="True" />
         <Setter Property="CanvasMinHeight"
                 Value="0" />
         <Setter Property="CanvasMaxHeight"
@@ -21,7 +23,8 @@
                           BorderThickness="{TemplateBinding BorderThickness}"
                           Background="{TemplateBinding Background}"
                           local:AttachedProperties.DayHeaderTemplate="{TemplateBinding DayHeaderTemplate}"
-                          local:AttachedProperties.HourItemTemplate="{TemplateBinding HourItemTemplate}">
+                          local:AttachedProperties.HourItemTemplate="{TemplateBinding HourItemTemplate}"
+                          local:AttachedProperties.IsHourSelectionEnabled="{TemplateBinding IsHourSelectionEnabled}">
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -56,6 +59,7 @@
                                         <DataTemplate>
                                             <local:DayView IsDateVisible="True"
                                                            IsHourVisible="False"
+                                                           IsEnabled="{Binding Path=(local:AttachedProperties.IsHourSelectionEnabled), ElementName=TemplateRoot}"
                                                            DayHeaderTemplate="{Binding Path=(local:AttachedProperties.DayHeaderTemplate), ElementName=TemplateRoot}"
                                                            HourItemTemplate="{Binding Path=(local:AttachedProperties.HourItemTemplate), ElementName=TemplateRoot}" />
                                         </DataTemplate>
