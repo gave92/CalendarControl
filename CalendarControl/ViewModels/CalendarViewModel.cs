@@ -133,6 +133,7 @@ namespace CalendarControl.ViewModels
                 var date = Days.Last().Date.AddDays(1);
                 var day = new Day(date, EventManager?.ForDay(date));
                 this.Days.Add(day);
+                // this.Days.First().EventManager.View.Source = null;
                 this.Days.RemoveAt(0);
                 offset--;
             }
@@ -141,6 +142,7 @@ namespace CalendarControl.ViewModels
                 var date = Days.First().Date.AddDays(-1);
                 var day = new Day(date, EventManager?.ForDay(date));
                 this.Days.Insert(0, day);
+                // this.Days.Last().EventManager.View.Source = null;
                 this.Days.RemoveAt(Days.Count - 1);
                 offset++;
             }
