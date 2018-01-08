@@ -15,10 +15,12 @@ $ Install-Package Gave.Libs.CalendarControl
 
 ## Quick guide
 
-#### 1. Basic usage.
+#### 1. Basic usage
 
 ```xml
-<Page xmlns:calendar="using:CalendarControl">
+<Page 
+      xmlns:calendar="using:CalendarControl">
+  
   <Grid>
     <calendar:Calendar Padding="16,0,16,16"
                        CanvasMinHeight="500"
@@ -38,6 +40,8 @@ The calendar default behaviour is to stretch to fill the available space both ho
 
 You can set the Calendar's ``ViewModel`` property to change the behaviour of the control. The ``ViewModel`` property must implement ``CalendarControl.Interfaces.ICalendarViewModel``. You can also inherit from the default implementation ``CalendarControl.ViewModels.CalendarViewModel``.
 
+###### Change header buttons behaviour
+
 The control has embedded buttons for changing days and creating/deleting an event. By default you can click and drag to select a range of hours in a day and use the header buttons to add an event. You can override this behaviour, e.g. you can show a dialog to allow the user to specify the Event name.
 
 ```cs
@@ -53,6 +57,7 @@ public class CustomCalendarModel : CalendarViewModel
         }
 
         // Override the AddEventCommand command, show a dialog to create an event
+        // Called when the user clicks the "plus" button on the calendar header
         private DelegateCommand _addEventCommand;
         public override DelegateCommand AddEventCommand => _addEventCommand ?? (_addEventCommand = new DelegateCommand(AddEvent));
 
@@ -73,12 +78,27 @@ public class CustomCalendarModel : CalendarViewModel
             if (result == ContentDialogResult.Primary)
             {
                 // Add event to the calendar               
-                EventManager?.AddEventAsync(dialog.Event);
+                await EventManager?.AddEventAsync(dialog.Event);
                 // Deselect the time range
                 ((List<Hour>)day.Hours).ForEach(h => h.IsSelected = false);
             }            
         }
     }
+```
+
+###### Customize the event management
+
+By default the events are saved in the "Events.txt" file in the LocalFolder as a JSON string. You can provide a custom implementation of the ``CalendarControl.Interfaces.IEventManager`` interface and pass it to the ``CalendarViewModel`` constructor.
+
+```cs
+public class CustomCalendarModel : CalendarViewModel
+  {
+        // 
+        public CustomCalendarModel() : base(eventManager: new CustomEventManager())
+        {
+
+        }
+  }
 ```
 
 ## Supported SDKs
