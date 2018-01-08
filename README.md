@@ -31,7 +31,13 @@ $ Install-Package Gave.Libs.CalendarControl
 
 The calendar default behaviour is to stretch to fill the available space both horizontally and vertically. The height can be limited using the ``CanvasMaxHeight`` property. If you set the ``CanvasMinHeight`` the control will use scrollbars when the available space is less than the value.
 
-#### 2. Custom look and behaviour
+#### 2. Custom look
+
+The control exposes a number of properties, e.g. ``HeaderTemplate`` and ``DayHeaderTemplate``, to customize the calendar appearance.
+You can find the default styles [here](https://github.com/gave92/CalendarControl/tree/master/CalendarControl/Themes).
+Also look [here](https://github.com/gave92/CalendarControl/tree/master/CalendarControl/Themes/Colors.xaml) for the x:Keys to override calendar colors and more.
+
+#### 3. Custom behaviour
 
 ```xml
 <calendar:Calendar IsHourSelectionEnabled="True"
@@ -93,12 +99,26 @@ By default the events are saved in the "Events.txt" file in the LocalFolder as a
 ```cs
 public class CustomCalendarModel : CalendarViewModel
   {
-        // 
+        // CustomEventManager that implements the IEventManager interface
         public CustomCalendarModel() : base(eventManager: new CustomEventManager())
         {
 
         }
   }
+```
+
+You can look [here](https://github.com/gave92/CalendarControl/blob/master/CalendarControl/Models/LocalEventManager.cs) for the default implementation of the IEventManager interface.
+
+```cs
+public interface IEventManager
+    {
+        Task AddEventAsync(Event ev);
+        Task RemoveEventAsync(Event ev);
+        Task RemoveEventsAsync(Func<Event, bool> predicate);
+        
+        // Returns a DailyEventManager containing the event list for "date"
+        DailyEventManager ForDay(DateTimeOffset date);
+    }
 ```
 
 ## Supported SDKs
