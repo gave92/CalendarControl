@@ -11,18 +11,25 @@ namespace CalendarControl
         public EventItem()
         {
             this.DefaultStyleKey = typeof(EventItem);
-            this.DataContextChanged += EventItem_DataContextChanged; ;
+            this.DataContextChanged += EventItem_DataContextChanged;
             this.Tapped += OnEventTapped;
             this.SizeChanged += OnEventSizeChanged;
+            this.Loaded += EventItem_Loaded;
             this.Unloaded += EventItem_Unloaded;
+        }
+
+        private void EventItem_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.Tapped -= OnEventTapped;
+            this.SizeChanged -= OnEventSizeChanged;
+            this.Tapped += OnEventTapped;
+            this.SizeChanged += OnEventSizeChanged;
         }
 
         private void EventItem_Unloaded(object sender, RoutedEventArgs e)
         {
             this.Tapped -= OnEventTapped;
             this.SizeChanged -= OnEventSizeChanged;
-            this.DataContextChanged -= EventItem_DataContextChanged;
-            this.Unloaded -= EventItem_Unloaded;
         }
 
         private void EventItem_DataContextChanged(FrameworkElement sender, DataContextChangedEventArgs e)

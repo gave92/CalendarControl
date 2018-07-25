@@ -17,7 +17,20 @@ namespace CalendarControl
         {
             this.DefaultStyleKey = typeof(EventView);
             this.SizeChanged += EventView_SizeChanged;
+            this.Loaded += EventView_Loaded;
             this.Unloaded += EventView_Unloaded;
+        }
+
+        private void EventView_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (EventManager != null)
+            {
+                this.EventManager.View.VectorChanged -= OnEventsCollectionChanged;
+                this.EventManager.View.VectorChanged += OnEventsCollectionChanged;
+            }
+
+            this.SizeChanged -= EventView_SizeChanged;
+            this.SizeChanged += EventView_SizeChanged;
         }
 
         private void EventView_Unloaded(object sender, RoutedEventArgs e)
@@ -25,11 +38,10 @@ namespace CalendarControl
             if (EventManager != null)
             {
                 this.EventManager.View.VectorChanged -= OnEventsCollectionChanged;
-                this.EventManager.View.Source = null;
+                // this.EventManager.View.Source = null;
             }
 
             this.SizeChanged -= EventView_SizeChanged;
-            this.Unloaded -= EventView_Unloaded;
         }
 
         private void EventView_SizeChanged(object sender, SizeChangedEventArgs e)
