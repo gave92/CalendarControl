@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Gave.Libs.CalendarControl</id>
-    <version>0.2.2</version>
+    <version>0.2.4</version>
     <title>Calendar control</title>
     <authors>Marco Gavelli</authors>
     <owners>Marco Gavelli</owners>
@@ -11,7 +11,7 @@
     <iconUrl>https://github.com/gave92/CalendarControl/blob/master/Screenshots/Calendar_Icon.png?raw=true</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Calendar control for UWP with week view and events</description>
-    <releaseNotes>Fixed dependencies.</releaseNotes>
+    <releaseNotes>Fixed missing xbf in package.</releaseNotes>
     <copyright>Copyright 2018 Marco Gavelli</copyright>
     <tags>calendar schedule events week</tags>
     <dependencies>
@@ -29,6 +29,11 @@
     <file src="bin\Release\CalendarControl.xr.xml" target="ref\uap10.0\CalendarControl"/>
     <file src="bin\Release\Themes\Colors.xaml" target="ref\uap10.0\CalendarControl\Themes"/>
     <file src="bin\Release\Themes\Defaults.xaml" target="ref\uap10.0\CalendarControl\Themes"/>
+    <file src="bin\Release\Themes\Calendar.xbf" target="ref\uap10.0\CalendarControl\Themes"/>
+    <file src="bin\Release\Themes\DayView.xbf" target="ref\uap10.0\CalendarControl\Themes"/>
+    <file src="bin\Release\Themes\EventItem.xbf" target="ref\uap10.0\CalendarControl\Themes"/>
+    <file src="bin\Release\Themes\EventView.xbf" target="ref\uap10.0\CalendarControl\Themes"/>
+    <file src="bin\Release\Themes\Generic.xbf" target="ref\uap10.0\CalendarControl\Themes"/>
 
     <file src="Themes\Generic.xaml" target="lib\uap10.0\CalendarControl\Themes"/>
     <file src="Themes\Calendar.xaml" target="lib\uap10.0\CalendarControl\Themes"/>
@@ -43,18 +48,33 @@
     <file src="bin\ARM\Release\CalendarControl.pri" target="runtimes\win10-arm\lib\uap10.0"/>
     <file src="bin\ARM\Release\CalendarControl.xr.xml" target="runtimes\win10-arm\lib\uap10.0\CalendarControl"/>
     <file src="bin\ARM\Release\Themes\Colors.xaml" target="runtimes\win10-arm\lib\uap10.0\CalendarControl\Themes"/>
-    <file src="bin\x86\Release\Themes\Defaults.xaml" target="runtimes\win10-x86\lib\uap10.0\CalendarControl\Themes"/>
+    <file src="bin\ARM\Release\Themes\Defaults.xaml" target="runtimes\win10-arm\lib\uap10.0\CalendarControl\Themes"/>
+    <file src="bin\ARM\Release\Themes\Calendar.xbf" target="runtimes\win10-arm\lib\uap10.0\CalendarControl\Themes"/>
+    <file src="bin\ARM\Release\Themes\DayView.xbf" target="runtimes\win10-arm\lib\uap10.0\CalendarControl\Themes"/>
+    <file src="bin\ARM\Release\Themes\EventItem.xbf" target="runtimes\win10-arm\lib\uap10.0\CalendarControl\Themes"/>
+    <file src="bin\ARM\Release\Themes\EventView.xbf" target="runtimes\win10-arm\lib\uap10.0\CalendarControl\Themes"/>
+    <file src="bin\ARM\Release\Themes\Generic.xbf" target="runtimes\win10-arm\lib\uap10.0\CalendarControl\Themes"/>
 
     <file src="bin\x64\Release\CalendarControl.dll" target="runtimes\win10-x64\lib\uap10.0"/>
     <file src="bin\x64\Release\CalendarControl.pri" target="runtimes\win10-x64\lib\uap10.0"/>
     <file src="bin\x64\Release\CalendarControl.xr.xml" target="runtimes\win10-x64\lib\uap10.0\CalendarControl"/>
     <file src="bin\x64\Release\Themes\Colors.xaml" target="runtimes\win10-x64\lib\uap10.0\CalendarControl\Themes"/>
     <file src="bin\x64\Release\Themes\Defaults.xaml" target="runtimes\win10-x64\lib\uap10.0\CalendarControl\Themes"/>
+    <file src="bin\x64\Release\Themes\Calendar.xbf" target="runtimes\win10-x64\lib\uap10.0\CalendarControl\Themes"/>
+    <file src="bin\x64\Release\Themes\DayView.xbf" target="runtimes\win10-x64\lib\uap10.0\CalendarControl\Themes"/>
+    <file src="bin\x64\Release\Themes\EventItem.xbf" target="runtimes\win10-x64\lib\uap10.0\CalendarControl\Themes"/>
+    <file src="bin\x64\Release\Themes\EventView.xbf" target="runtimes\win10-x64\lib\uap10.0\CalendarControl\Themes"/>
+    <file src="bin\x64\Release\Themes\Generic.xbf" target="runtimes\win10-x64\lib\uap10.0\CalendarControl\Themes"/>
 
     <file src="bin\x86\Release\CalendarControl.dll" target="runtimes\win10-x86\lib\uap10.0"/>
     <file src="bin\x86\Release\CalendarControl.pri" target="runtimes\win10-x86\lib\uap10.0"/>
     <file src="bin\x86\Release\CalendarControl.xr.xml" target="runtimes\win10-x86\lib\uap10.0\CalendarControl"/>
     <file src="bin\x86\Release\Themes\Colors.xaml" target="runtimes\win10-x86\lib\uap10.0\CalendarControl\Themes"/>
     <file src="bin\x86\Release\Themes\Defaults.xaml" target="runtimes\win10-x86\lib\uap10.0\CalendarControl\Themes"/>
+    <file src="bin\x86\Release\Themes\Calendar.xbf" target="runtimes\win10-x86\lib\uap10.0\CalendarControl\Themes"/>
+    <file src="bin\x86\Release\Themes\DayView.xbf" target="runtimes\win10-x86\lib\uap10.0\CalendarControl\Themes"/>
+    <file src="bin\x86\Release\Themes\EventItem.xbf" target="runtimes\win10-x86\lib\uap10.0\CalendarControl\Themes"/>
+    <file src="bin\x86\Release\Themes\EventView.xbf" target="runtimes\win10-x86\lib\uap10.0\CalendarControl\Themes"/>
+    <file src="bin\x86\Release\Themes\Generic.xbf" target="runtimes\win10-x86\lib\uap10.0\CalendarControl\Themes"/>
   </files>
 </package>
