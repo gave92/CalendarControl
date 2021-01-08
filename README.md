@@ -122,12 +122,12 @@ public interface IEventManager
 ```
 
 ## Supported SDKs
-* Anniversary Update (14393)
 * Creators Update (15063)
-* Fall Creators Update (16299)
+* ...
+* May 2020 Update (19041)
 
 ## Screenshots
 
 <img src="https://github.com/gave92/CalendarControl/blob/master/Screenshots/Calendar_1.png?raw=true" width="750" />
 
-© Copyright 2017 - 2018 by Marco Gavelli
+© Copyright 2017 - 2021 by Marco Gavelli
